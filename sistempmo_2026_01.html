@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Pendidikan Moral MRSM Terendak</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f1f5f9; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
+        @media (min-width: 768px) { body { flex-direction: row; } }
+        aside { width: 100%; background: #0f172a; color: #f8fafc; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; border-bottom: 1px solid #1e293b; box-shadow: 0 4px 6px rgba(0,0,0,0.1); flex-shrink: 0; }
+        @media (min-width: 768px) { aside { width: 320px; min-height: 100vh; border-bottom: none; border-right: 1px solid #1e293b; position: sticky; top: 0; } }
+        .brand-section { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid #1e293b; }
+        .main-title { font-size: 20px; font-weight: 700; color: #fff; line-height: 1.2; }
+        .subtitle { font-size: 12px; color: #94a3b8; margin-top: 4px; font-style: italic; }
+        .access-box { background: rgba(30, 41, 59, 0.5); padding: 16px; border: 1px solid rgba(51, 65, 85, 0.5); border-radius: 12px; margin-bottom: 24px; }
+        .section-tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; margin-bottom: 12px; }
+        .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+        .btn-role { padding: 8px 12px; font-size: 12px; font-weight: 500; border-radius: 8px; border: none; cursor: pointer; text-align: center; width: 100%; transition: all 0.2s; }
+        .btn-active { background: #4f46e5; color: #fff; }
+        .btn-inactive { background: #334155; color: #cbd5e1; }
+        .btn-inactive:hover { background: #475569; }
+        .status-badge { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #e2e8f0; background: #0f172a; padding: 8px; border-radius: 8px; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; }
+        .metrics-space { display: flex; flex-direction: column; gap: 16px; }
+        .metric-card { display: flex; justify-content: space-between; align-items: center; background: rgba(30, 41, 59, 0.3); padding: 12px; border-radius: 8px; border: 1px solid #1e293b; }
+        .metric-label { font-size: 12px; color: #cbd5e1; }
+        .metric-value { font-size: 13px; font-weight: 700; color: #fff; background: #1e293b; padding: 2px 10px; border-radius: 6px; border: 1px solid #334155; }
+        .summary-box { background: rgba(30, 41, 59, 0.3); padding: 12px; border-radius: 8px; border: 1px solid #1e293b; }
+        .summary-title { font-size: 12px; color: #94a3b8; font-weight: 500; margin-bottom: 8px; }
+        .summary-row { display: flex; justify-content: space-between; font-size: 12px; padding: 6px 0; border-bottom: 1px solid rgba(30, 41, 59, 0.5); }
+        .summary-row:last-child { border-bottom: none; }
+        .c-rph { color: #60a5fa; font-weight: 600; }
+        .c-lat { color: #4ade80; font-weight: 600; }
+        .c-mod { color: #c084fc; font-weight: 600; }
+        .c-bnk { color: #fbbf24; font-weight: 600; }
+        .btn-reset { background: none; border: none; font-size: 11px; color: #64748b; cursor: pointer; margin-top: 24px; text-decoration: underline; }
+        .btn-reset:hover { color: #f87171; }
+        main { flex: 1; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
+        @media (min-width: 768px) { main { padding: 32px; } }
+        .top-ribbon { display: flex; flex-direction: column; gap: 16px; justify-content: space-between; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; }
+        @media (min-width: 640px) { .top-ribbon { flex-direction: row; align-items: center; } }
+        .search-container { position: relative; flex: 1; max-width: 400px; width: 100%; }
+        .search-input { width: 100%; padding: 8px 16px; font-size: 14px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 10px; outline: none; }
+        .admin-controls { display: none; gap: 8px; width: 100%; }
+        @media (min-width: 640px) { .admin-controls { width: auto; display: flex; } }
+        .btn-control { padding: 8px 16px; font-size: 12px; font-weight: 500; border-radius: 10px; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
+        .btn-primary { background: #4f46e5; color: #ffffff; }
+        .btn-primary:hover { background: #4338ca; }
+        .btn-secondary { background: #ffffff; color: #334155; border: 1px solid #cbd5e1; }
+        .breadcrumb-nav { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #64748b; font-weight: 500; background: #ffffff; padding: 10px 16px; border-radius: 10px; border: 1px solid rgba(226, 232, 240, 0.6); margin-bottom: 24px; }
+        .crumb-link { cursor: pointer; color: #4f46e5; font-weight: bold; text-decoration: underline; }
+        .grid-container { display: grid; grid-template-columns: 1fr; gap: 20px; width: 100%; }
+        @media (min-width: 640px) { .grid-container { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .grid-container { grid-template-columns: repeat(3, 1fr); } }
+        .folder-card { background: #ffffff; border: 1px solid rgba(226, 232, 240, 0.8); border-radius: 16px; padding: 20px; cursor: pointer; position: relative; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.25s; min-height: 160px; }
+        .folder-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px rgba(0,0,0,0.05); border-color: #cbd5e1; }
+        .icon-shape { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
+        .bg-root-icon { background: #e0e7ff; color: #4f46e5; }
+        .bg-rph-icon { background: #dbeafe; color: #2563eb; }
+        .bg-lat-icon { background: #dcfce7; color: #16a34a; }
+        .bg-mod-icon { background: #f3e8ff; color: #9333ea; }
+        .bg-bnk-icon { background: #fef3c7; color: #d97706; }
+        .card-name { font-size: 14px; font-weight: 700; color: #1e293b; }
+        .card-footer { margin-top: 24px; padding-top: 12px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; color: #4f46e5; }
+        .btn-card-del { position: absolute; top: 16px; right: 16px; width: 28px; height: 28px; background: #fee2e2; color: #ef4444; border: none; border-radius: 8px; cursor: pointer; }
+        .table-view { background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden; width: 100%; display: flex; flex-direction: column; }
+        .table-header { padding: 16px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; display: flex; flex-direction: row; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; width: 100%; }
+        .table-title-area { flex: 1; min-width: 150px; }
+        .table-title { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #334155; }
+        .table-subtitle { font-size: 11px; color: #94a3b8; }
+        .table-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .file-list { display: flex; flex-direction: column; width: 100%; }
+        .file-row { padding: 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; width: 100%; }
+        .file-row:hover { background: #f8fafc; }
+        .file-info { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; }
+        .file-avatar { width: 32px; height: 32px; border-radius: 8px; background: #e2e8f0; color: #475569; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+        .file-meta { min-width: 0; flex: 1; }
+        .file-title-btn { font-size: 12px; font-weight: 600; color: #4f46e5; background: none; border: none; cursor: pointer; text-align: left; text-decoration: underline; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; display: block; }
+        .file-title-btn:hover { color: #312e81; }
+        .file-details { font-size: 10px; color: #94a3b8; margin-top: 2px; }
+        .file-buttons { display: flex; align-items: center; gap: 6px; margin-left: 16px; flex-shrink: 0; }
+        .btn-action-icon { width: 32px; height: 32px; border-radius: 8px; border: 1px solid #e2e8f0; background: #fff; color: #475569; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; text-decoration: none; }
+        .btn-delete-icon { background: #fee2e2; color: #ef4444; border: none; }
+        .empty-view { padding: 48px; text-align: center; color: #94a3b8; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+        .modal-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 16px; }
+        .modal-box { width: 100%; max-width: 420px; background: #ffffff; border-radius: 16px; padding: 26px; border: 1px solid #e2e8f0; }
+        .modal-lg { max-width: 600px; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .modal-title { font-size: 14px; font-weight: 700; color: #0f172a; }
+        .modal-desc { font-size: 12px; color: #64748b; }
+        .btn-close-modal { background: none; border: none; color: #94a3b8; font-size: 18px; cursor: pointer; }
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; color: #475569; margin-bottom: 6px; }
+        .form-input { width: 100%; padding: 10px 12px; font-size: 12px; border: 1px solid #cbd5e1; border-radius: 10px; outline: none; }
+        .modal-footer-btns { display: flex; gap: 10px; margin-top: 28px; padding-bottom: 4px; }
+        .modal-footer-btns button { flex: 1; padding: 10px; font-size: 12px; font-weight: 600; border-radius: 10px; cursor: pointer; border: none; }
+        .btn-modal-cancel { background: #f1f5f9; color: #475569; }
+        .trash-container { max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+        .trash-row { padding: 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+        .toast-banner { display: none; position: fixed; top: 24px; right: 24px; z-index: 1000; background: #0f172a; color: #ffffff; font-size: 12px; padding: 14px 20px; border-radius: 12px; align-items: center; gap: 12px; border: 1px solid #1e293b; opacity: 0; transform: translateY(10px); transition: all 0.3s; }
+        .toast-close { background: none; border: none; color: #94a3b8; cursor: pointer; }
+        .footer-text { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 48px; }
+    </style>
+</head>
+<body>
+    <aside>
+        <div>
+            <div class="brand-section">
+                <h1 class="main-title">Unit Pendidikan Moral MRSM Terendak</h1>
+                <p class="subtitle">Created by RuzanaMuhamad</p>
+            </div>
+            <div class="access-box">
+                <h2 class="section-tag">System Access</h2>
+                <div class="role-grid">
+                    <button id="btnUserMode" onclick="setRole('User')" class="btn-role btn-active">User</button>
+                    <button id="btnAdminMode" onclick="triggerAdminLogin()" class="btn-role btn-inactive">Admin</button>
+                </div>
+                <div class="status-badge"><span class="status-dot"></span><span>Role: <strong id="currentRoleDisplay">User</strong></span></div>
+            </div>
+            <div class="metrics-space">
+                <h2 class="section-tag">Dashboard Metrics</h2>
+                <div class="metric-card"><div class="metric-label">📊 Total Visitors</div><span id="visitorCount" class="metric-value">1</span></div>
+                <div class="summary-box">
+                    <div class="summary-title">📁 Repository Summary</div>
+                    <div class="summary-row"><span>RPH Files</span><span id="statRPH" class="c-rph">0</span></div>
+                    <div class="summary-row"><span>Latihan Files</span><span id="statLatihan" class="c-lat">0</span></div>
+                    <div class="summary-row"><span>Modul Files</span><span id="statModul" class="c-mod">0</span></div>
+                    <div class="summary-row"><span>Bank Soalan Files</span><span id="statSoalan" class="c-bnk">0</span></div>
+                </div>
+            </div>
+        </div>
+        <center><button onclick="resetDashboardData()" class="btn-reset">Reset Dashboard Layout</button></center>
+    </aside>
+    <main>
+        <div>
+            <div class="top-ribbon">
+                <div class="search-container"><input type="text" id="globalSearchInput" oninput="performGlobalSearch()" placeholder="Search documents globally..." class="search-input"></div>
+                <div id="adminActionsContainer" class="admin-controls">
+                    <button onclick="createNewTingkatanFolder()" class="btn-control btn-primary">Add Tingkatan</button>
+                    <button onclick="openAdminTrash()" class="btn-control btn-secondary">History Log (Trash)</button>
+                </div>
+            </div>
+            <nav class="breadcrumb-nav">
+                <span onclick="navigateToRoot()" class="crumb-link">🏡 Home</span>
+                <span id="breadcrumbSeparator1" class="crumb-sep" style="display:none;">/</span>
+                <span id="breadcrumbLevel1" class="crumb-active" style="display:none;"></span>
+                <span id="breadcrumbSeparator2" class="crumb-sep" style="display:none;">/</span>
+                <span id="breadcrumbLevel2" class="crumb-active" style="display:none; color:#4f46e5;"></span>
+            </nav>
+            <div id="toastNotification" class="toast-banner">
+                <span style="color:#22c55e; font-weight:bold;">✓</span>&nbsp;<span id="toastMessage">Operation executed.</span>
+                <button onclick="dismissNotification()" class="toast-close">×</button>
+            </div>
+            <div id="gridDisplayWindow" class="grid-container"></div>
+        </div>
+        <div class="footer-text">&copy; 2026 Unit Pendidikan Moral MRSM Terendak.</div>
+    </main>
+
+    <div id="modalAdminAuth" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header"><h3 class="modal-title">Admin Authorization</h3><button onclick="closeAdminAuthModal()" class="btn-close-modal">×</button></div>
+            <p class="modal-desc" style="margin-bottom:12px;">Provide password to unlock admin tools.</p>
+            <input type="password" id="inputAdminPin" placeholder="Admin Password (default: admin123)" class="form-input" style="margin-bottom:16px;">
+            <div class="modal-footer-btns">
+                <button onclick="closeAdminAuthModal()" class="btn-modal-cancel">Cancel</button>
+                <button onclick="verifyAdminPassword()" class="btn-primary" style="color:white; border-radius:10px;">Verify</button>
+            </div>
+        </div>
+    </div>
+    <div id="modalFileUpload" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header"><h3 class="modal-title">Upload Material</h3><button onclick="closeUploadDrawerModal()" class="btn-close-modal">×</button></div>
+            <p class="modal-desc" style="margin-bottom:16px;">Adding to: <strong id="uploadTargetSubfolderText" style="color:#4f46e5"></strong></p>
+            <div class="form-group">
+                <label class="form-label">Search Local File Computer</label>
+                <input type="file" id="localFileBrowserInput" class="form-input" style="background:#f8fafc;" onchange="handleLocalFileSelection(this)">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Document Title / Name</label>
+                <input type="text" id="inputFileName" placeholder="e.g., Bahan Rujukan Moral" class="form-input">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Live Source URL (Optional)</label>
+                <input type="text" id="inputFileUrl" placeholder="e.g., Link Drive atau letak #" class="form-input" value="#">
+            </div>
+            <div class="form-group">
+                <label class="form-label">File Type Extension</label>
+                <select id="inputFileTypeSelector" class="form-input">
+                    <option value="pdf">PDF Document (.pdf)</option>
+                    <option value="docx">Word Document (.docx)</option>
+                    <option value="png">Image Asset (.png)</option>
+                </select>
+            </div>
+            <div class="modal-footer-btns">
+                <button onclick="closeUploadDrawerModal()" class="btn-modal-cancel">Cancel</button>
+                <button onclick="executeMaterialUpload()" class="btn-primary" style="color:white; border-radius:10px;">Upload</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalTrashBin" class="modal-overlay">
+        <div class="modal-box modal-lg">
+            <div class="modal-header"><h3 class="modal-title">🗑️ History Log (Trash)</h3><button onclick="closeAdminTrash()" class="btn-close-modal">×</button></div>
+            <input type="text" id="trashSearchInput" oninput="renderTrashLogs()" placeholder="Filter trash log entries..." class="form-input" style="margin:12px 0; background:#f8fafc;">
+            <div id="trashLogsContainer" class="trash-container"></div>
+        </div>
+    </div>
+
+    <script>
+        let activeRole = 'User', currentLevel = 'root', currentTingkatanNode = null, currentSubfolderNode = null, dismissTimer = null;
+        const defaultFolders = ['Tingkatan 1', 'Tingkatan 2', 'Tingkatan 3', 'Tingkatan 4', 'Tingkatan 5'], defaultSubfolders = ['RPH', 'Latihan', 'Modul', 'Bank Soalan'];
+        let DB = JSON.parse(localStorage.getItem('MoralDashboard_DB')) || { folders: [], trash: [], visitors: 0 };
+        function initSystemState() {
+            if (DB.folders.length === 0) {
+                defaultFolders.forEach((name, i) => {
+                    DB.folders.push({
+                        id: 'ting_' + Date.now() + '_' + i, name: name,
+                        subfolders: defaultSubfolders.map((sub, si) => ({ id: 'sub_' + Date.now() + '_' + i + '_' + si, name: sub, files: [] }))
+                    });
+                });
+                saveToLocalStorage();
+            }
+            if (!sessionStorage.getItem('countedThisSession')) {
+                DB.visitors += 1; sessionStorage.setItem('countedThisSession', 'true'); saveToLocalStorage();
+            }
+            document.getElementById('visitorCount').innerText = DB.visitors;
+            setRole('User');
+        }
+
+        function saveToLocalStorage() { localStorage.setItem('MoralDashboard_DB', JSON.stringify(DB)); updateGlobalSummaryStatistics(); }
+
+        function updateGlobalSummaryStatistics() {
+            let cnt = { 'RPH': 0, 'Latihan': 0, 'Modul': 0, 'Bank Soalan': 0 };
+            DB.folders.forEach(f => f.subfolders.forEach(s => { if (cnt[s.name] !== undefined) cnt[s.name] += s.files.length; }));
+            document.getElementById('statRPH').innerText = cnt['RPH'];
+            document.getElementById('statLatihan').innerText = cnt['Latihan'];
+            document.getElementById('statModul').innerText = cnt['Modul'];
+            document.getElementById('statSoalan').innerText = cnt['Bank Soalan'];
+        }
+
+        function handleLocalFileSelection(input) {
+            if (input.files && input.files) {
+                let file = input.files[0];
+                let tokens = file.name.split('.');
+                let ext = tokens.pop().toLowerCase();
+                document.getElementById('inputFileName').value = tokens.join('.');
+                let sel = document.getElementById('inputFileTypeSelector');
+                if (ext === 'pdf') sel.value = 'pdf';
+                else if (ext === 'doc' || ext === 'docx') sel.value = 'docx';
+                else if (['png', 'jpg', 'jpeg'].includes(ext)) sel.value = 'png';
+            }
+        }
+
+        function viewOfflineFileContent(name, date, size) {
+            let w = window.open("", "_blank");
+            w.document.write("<html><head><title>Preview</title><style>body{font-family:sans-serif;padding:40px;background:#f1f5f9;color:#1e293b;}div{max-width:600px;margin:0 auto;background:white;padding:30px;border-radius:8px;}h1{font-size:20px;}</style></head><body><div><h1>" + name + "</h1><p style='color:#94a3b8;font-size:12px;'>Date: " + date + " | Size: " + size + "</p><hr><br><p><strong>[KANDUNGAN LUAR TALIAN]</strong></p><p>Bahan Pengajaran PdP Unit Pendidikan Moral MRSM Terendak sedia diakses.</p></div></body></html>");
+            w.document.close();
+        }
+        function renderActiveViewboardWindow() {
+            const container = document.getElementById('gridDisplayWindow'); if(!container) return;
+            const search = document.getElementById('globalSearchInput').value.toLowerCase().trim();
+            container.innerHTML = '';
+            if (search !== '') { renderGlobalSearchResults(search); return; }
+
+            if (currentLevel === 'root') {
+                updateBreadcrumbTrackers(null, null);
+                DB.folders.forEach(f => {
+                    let fileCount = f.subfolders.reduce((acc, curr) => acc + curr.files.length, 0);
+                    let card = document.createElement('div'); card.className = 'folder-card';
+                    card.setAttribute('onclick', `navigateToTingkatan('${f.id}')`);
+                    card.innerHTML = `<div><div class="icon-shape bg-root-icon">📁</div><h3 class="card-name">${f.name}</h3><p class="card-desc">${fileCount} items</p></div><div class="card-footer"><span>Open folder</span><span>➔</span></div>`;
+                    if (activeRole === 'Admin') {
+                        let btn = document.createElement('button'); btn.className = 'btn-card-del'; btn.innerHTML = '✕';
+                        btn.setAttribute('onclick', `event.stopPropagation(); removeTingkatanFolder('${f.id}')`); card.appendChild(btn);
+                    }
+                    container.appendChild(card);
+                });
+            } else if (currentLevel === 'tingkatan') {
+                let f = DB.folders.find(x => x.id === currentTingkatanNode); if (!f) { navigateToRoot(); return; }
+                updateBreadcrumbTrackers(f.name, null);
+                const map = { 'RPH':'bg-rph-icon', 'Latihan':'bg-lat-icon', 'Modul':'bg-mod-icon', 'Bank Soalan':'bg-bnk-icon' };
+                const em = { 'RPH':'📖', 'Latihan':'📝', 'Modul':'📚', 'Bank Soalan':'❓' };
+                f.subfolders.forEach(s => {
+                    let card = document.createElement('div'); card.className = 'folder-card';
+                    card.setAttribute('onclick', `navigateToSubfolder('${s.id}')`);
+                    card.innerHTML = `<div><div class="icon-shape ${map[s.name]||'bg-root-icon'}">${em[s.name]||'📁'}</div><h3 class="card-name">${s.name}</h3><p class="card-desc">${s.files.length} files</p></div><div class="card-footer"><span>Open</span><span>➔</span></div>`;
+                    container.appendChild(card);
+                });
+            } else if (currentLevel === 'subfolder') {
+                let f = DB.folders.find(x => x.id === currentTingkatanNode);
+                let s = f ? f.subfolders.find(x => x.id === currentSubfolderNode) : null; if (!s) { navigateToRoot(); return; }
+                updateBreadcrumbTrackers(f.name, s.name);
+                
+                let viewBlock = document.createElement('div'); viewBlock.className = 'table-view';
+                let header = document.createElement('div'); header.className = 'table-header';
+                header.innerHTML = `<div class="table-title-area"><h4 class="table-title">${s.name} REGISTER</h4><p class="table-subtitle">Click filename to preview/read live document before download</p></div>`;
+                
+                let actions = document.createElement('div'); actions.className = 'table-actions';
+                let btnDl = document.createElement('button'); btnDl.className = 'btn-control btn-secondary'; btnDl.innerText = '⬇ Download All';
+                btnDl.onclick = function() { downloadAll(s.id); }; actions.appendChild(btnDl);
+                
+                if (activeRole === 'Admin') {
+                    let btnUl = document.createElement('button'); btnUl.className = 'btn-control btn-primary'; btnUl.innerText = '➕ Upload';
+                    btnUl.onclick = openUpload; actions.appendChild(btnUl);
+                }
+                header.appendChild(actions); viewBlock.appendChild(header);
+
+                if (s.files.length === 0) {
+                    let empty = document.createElement('div'); empty.className = 'empty-view'; empty.innerHTML = '📦 <span>Folder empty.</span>';
+                    viewBlock.appendChild(empty);
+                } else {
+                    let list = document.createElement('div'); list.className = 'file-list';
+                    s.files.forEach((file, idx) => {
+                        let row = document.createElement('div'); row.className = 'file-row';
+                        let info = document.createElement('div'); info.className = 'file-info';
+                        info.innerHTML = '<div class="file-avatar">DOC</div>';
+                        let meta = document.createElement('div'); meta.className = 'file-meta';
+                        
+                        let titleBtn = document.createElement('button'); titleBtn.className = 'file-title-btn'; titleBtn.innerText = file.name;
+                        titleBtn.onclick = function() { viewOfflineFileContent(file.name, file.date, file.size); };
+                        
+                        let det = document.createElement('p'); det.className = 'file-details'; det.innerText = file.date + ' | ' + file.size;
+                        meta.appendChild(titleBtn); meta.appendChild(det); info.appendChild(meta); row.appendChild(info);
+                        
+                        let btns = document.createElement('div'); btns.className = 'file-buttons';
+                        let dl = document.createElement('button'); dl.className = 'btn-action-icon'; dl.innerText = '⬇';
+                        dl.onclick = function() { alert('Simulasi Muat Turun Luar Talian Berjaya bagi: ' + file.name); };
+                        btns.appendChild(dl);
+                        
+                        if (activeRole === 'Admin') {
+                            let del = document.createElement('button'); del.className = 'btn-action-icon btn-delete-icon'; del.innerText = '✕';
+                            del.onclick = function() { deleteFileByIndex(idx); };
+                            btns.appendChild(del);
+                        }
+                        row.appendChild(btns); list.appendChild(row);
+                    });
+                    viewBlock.appendChild(list);
+                }
+                container.appendChild(viewBlock);
+            }
+        }
+        function renderGlobalSearchResults(k) {
+            const container = document.getElementById('gridDisplayWindow');
+            let viewBlock = document.createElement('div'); viewBlock.className = 'table-view';
+            viewBlock.innerHTML = `<div class="table-header"><div class="table-title-area"><h4 class="table-title">Results for "${k}"</h4></div></div>`;
+            let res = []; DB.folders.forEach(f => f.subfolders.forEach(s => s.files.forEach(file => { if(file.name.toLowerCase().includes(k)) res.push({file, sid:s.id, path:`${f.name} → ${s.name}`}); })));
+            if (res.length === 0) {
+                viewBlock.innerHTML += `<div class="empty-view">🔍 <span>No matches.</span></div>`;
+            } else {
+                let list = document.createElement('div'); list.className = 'file-list';
+                res.forEach(x => {
+                    let row = document.createElement('div'); row.className = 'file-row';
+                    let info = document.createElement('div'); info.className = 'file-info';
+                    info.innerHTML = '<div class="file-avatar">DOC</div>';
+                    let meta = document.createElement('div'); meta.className = 'file-meta';
+                    let titleBtn = document.createElement('button'); titleBtn.className = 'file-title-btn'; titleBtn.innerText = x.file.name;
+                    titleBtn.onclick = function() { viewOfflineFileContent(x.file.name, x.file.date, x.file.size); };
+                    let det = document.createElement('p'); det.className = 'file-details'; det.innerText = x.path;
+                    meta.appendChild(titleBtn); meta.appendChild(det); info.appendChild(meta); row.appendChild(info);
+                    let btns = document.createElement('div'); btns.className = 'file-buttons';
+                    let dl = document.createElement('button'); dl.className = 'btn-action-icon'; dl.innerText = '⬇';
+                    dl.onclick = function() { alert('Simulasi Muat Turun Luar Talian Berjaya'); }; btns.appendChild(dl);
+                    if (activeRole === 'Admin') {
+                        let del = document.createElement('button'); del.className = 'btn-action-icon btn-delete-icon'; del.innerText = '✕';
+                        del.onclick = function() { deleteFileByIdDirect(x.sid, x.file.id); }; btns.appendChild(del);
+                    }
+                    row.appendChild(btns); list.appendChild(row);
+                });
+                viewBlock.appendChild(list);
+            }
+            container.appendChild(viewBlock);
+        }
+
+        function updateBreadcrumbTrackers(l1, l2) {
+            const s1 = document.getElementById('breadcrumbSeparator1'), b1 = document.getElementById('breadcrumbLevel1');
+            const s2 = document.getElementById('breadcrumbSeparator2'), b2 = document.getElementById('breadcrumbLevel2');
+            if (l1) { s1.style.display = 'inline'; b1.style.display = 'inline'; b1.innerText = l1; b1.setAttribute('onclick', `navigateToTingkatan('${currentTingkatanNode}')`); b1.style.cursor = l2 ? 'pointer' : 'default'; }
+            else { s1.style.display = 'none'; b1.style.display = 'none'; }
+            if (l2) { s2.style.display = 'inline'; b2.style.display = 'inline'; b2.innerText = l2; } else { s2.style.display = 'none'; b2.style.display = 'none'; }
+        }
+
+        function navigateToRoot() { currentLevel = 'root'; currentTingkatanNode = null; currentSubfolderNode = null; renderActiveViewboardWindow(); }
+        function navigateToTingkatan(id) { currentLevel = 'tingkatan'; currentTingkatanNode = id; currentSubfolderNode = null; renderActiveViewboardWindow(); }
+        function navigateToSubfolder(id) { currentLevel = 'subfolder'; currentSubfolderNode = id; renderActiveViewboardWindow(); }
+
+        function setRole(r) {
+            activeRole = r; document.getElementById('currentRoleDisplay').innerText = r;
+            const bu = document.getElementById('btnUserMode'), ba = document.getElementById('btnAdminMode'), ac = document.getElementById('adminActionsContainer');
+            if (r === 'Admin') { ba.className = "btn-role btn-active"; bu.className = "btn-role btn-inactive"; if(ac) ac.style.display = 'flex'; }
+            else { bu.className = "btn-role btn-active"; ba.className = "btn-role btn-inactive"; if(ac) ac.style.display = 'none'; }
+            renderActiveViewboardWindow();
+        }
+
+        function triggerAdminLogin() {
+            if (activeRole === 'Admin') setRole('User');
+            else { document.getElementById('modalAdminAuth').style.display = 'flex'; document.getElementById('inputAdminPin').value = ''; }
+        }
+        function closeAdminAuthModal() { document.getElementById('modalAdminAuth').style.display = 'none'; }
+        function verifyAdminPassword() {
+            if (document.getElementById('inputAdminPin').value === 'admin123') { setRole('Admin'); closeAdminAuthModal(); showNotification('Logged in as Admin'); }
+            else alert('Wrong password.');
+        }
+
+        function createNewTingkatanFolder() {
+            let n = prompt("Enter new folder name (e.g., Tingkatan 6):"); if (!n || !n.trim()) return;
+            DB.folders.push({ id: 'ting_'+Date.now(), name: n.trim(), subfolders: defaultSubfolders.map((sub, si) => ({ id: 'sub_'+Date.now()+'_'+si, name: sub, files: [] })) });
+            saveToLocalStorage(); renderActiveViewboardWindow(); showNotification('Folder added.');
+        }
+        function removeTingkatanFolder(id) {
+            if (!confirm('Delete permanently?')) return;
+            DB.folders = DB.folders.filter(x => x.id !== id); saveToLocalStorage(); renderActiveViewboardWindow(); showNotification('Folder removed.');
+        }
+
+        function openUpload() {
+            let f = DB.folders.find(x => x.id === currentTingkatanNode), s = f.subfolders.find(x => x.id === currentSubfolderNode);
+            document.getElementById('uploadTargetSubfolderText').innerText = `${f.name} > ${s.name}`;
+            document.getElementById('inputFileName').value = ''; document.getElementById('inputFileUrl').value = '#'; document.getElementById('localFileBrowserInput').value = '';
+            document.getElementById('modalFileUpload').style.display = 'flex';
+        }
+        function closeUploadDrawerModal() { document.getElementById('modalFileUpload').style.display = 'none'; }
+        function executeMaterialUpload() {
+            let name = document.getElementById('inputFileName').value.trim(), ext = document.getElementById('inputFileTypeSelector').value, url = document.getElementById('inputFileUrl').value.trim();
+            if (!name) return alert('Enter filename.');
+            let f = DB.folders.find(x => x.id === currentTingkatanNode), s = f.subfolders.find(x => x.id === currentSubfolderNode);
+            let today = new Date().toISOString().split('T')[0];
+            s.files.push({ id: 'file_'+Date.now(), name: name + '.' + ext, size: '2.5 MB', date: today, url: url });
+            saveToLocalStorage(); closeUploadDrawerModal(); renderActiveViewboardWindow(); showNotification('Uploaded successfully.');
+        }
+
+        function deleteFileByIndex(index) {
+            let f = DB.folders.find(x => x.id === currentTingkatanNode);
+            let s = f ? f.subfolders.find(x => x.id === currentSubfolderNode) : null;
+            if(s && s.files[index]) {
+                let file = s.files[index]; s.files.splice(index, 1);
+                DB.trash.push({ logId: 'log_'+Date.now(), file: file, subfolderId: s.id, parentFolderName: f.name, subfolderName: s.name, deletedTimestamp: new Date().toLocaleString() });
+                saveToLocalStorage(); renderActiveViewboardWindow(); showNotification('Moved to History Log.');
+            }
+        }
+
+        function deleteFileByIdDirect(sid, fid) {
+            let f; DB.folders.forEach(x => { if(x.subfolders.find(y => y.id === sid)) f = x; });
+            let s = f ? f.subfolders.find(x => x.id === sid) : null;
+            if(s) {
+                let idx = s.files.findIndex(x => x.id === fid);
+                if(idx !== -1) {
+                    let file = s.files[idx]; s.files.splice(idx, 1);
+                    DB.trash.push({ logId: 'log_'+Date.now(), file: file, subfolderId: sid, parentFolderName: f.name, subfolderName: s.name, deletedTimestamp: new Date().toLocaleString() });
+                    saveToLocalStorage(); renderActiveViewboardWindow(); showNotification('Moved to History Log.');
+                }
+            }
+        }
+
+        function downloadAll(sid) {
+            let f = DB.folders.find(x => x.id === currentTingkatanNode), s = f.subfolders.find(x => x.id === sid);
+            if(s.files.length === 0) return alert('Folder empty.'); alert('Downloading all ' + s.files.length + ' files from ' + f.name + ' > ' + s.name);
+        }
+
+        function openAdminTrash() { document.getElementById('modalTrashBin').style.display = 'flex'; renderTrashLogs(); }
+        function closeAdminTrash() { document.getElementById('modalTrashBin').style.display = 'none'; }
+        function renderTrashLogs() {
+            const container = document.getElementById('trashLogsContainer'), search = document.getElementById('trashSearchInput').value.toLowerCase().trim();
+            container.innerHTML = '';
+            let filtered = DB.trash.filter(x => x.file.name.toLowerCase().includes(search));
+            if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#94a3b8;font-size:12px;padding:20px;">Trash empty.</p>'; return; }
+            filtered.reverse().forEach(log => {
+                let row = document.createElement('div'); row.className = 'trash-row';
+ row.innerHTML = `<div><strong>${log.file.name}</strong><div style="font-size:10px;color:#94a3b8;">${log.parentFolderName} > ${log.subfolderName} | ${log.deletedTimestamp}</div></div><button onclick="restoreFile('${log.logId}')" class="btn-control btn-secondary" style="padding:4px 10px;font-size:11px;">Restore</button>`;
+                container.appendChild(row);
+            });
+        }
+
+        function restoreFile(logId) {
+            let idx = DB.trash.findIndex(x => x.logId === logId), log = DB.trash[idx]; DB.trash.splice(idx, 1);
+            let f = DB.folders.find(x => x.name === log.parentFolderName), s = f ? f.subfolders.find(x => x.id === log.subfolderId) : null;
+            if (s) { s.files.push(log.file); showNotification('File restored.'); }
+            saveToLocalStorage(); renderTrashLogs(); renderActiveViewboardWindow();
+        }
+
+        function performGlobalSearch() { renderActiveViewboardWindow(); }
+        function showNotification(msg) {
+            const b = document.getElementById('toastNotification'); document.getElementById('toastMessage').innerText = msg;
+            clearTimeout(dismissTimer); b.style.display = 'flex'; setTimeout(() => { b.style.opacity = '1'; b.style.transform = 'translateY(0)'; }, 10);
+            dismissTimer = setTimeout(dismissNotification, 4000);
+        }
+ 	function dismissNotification() {
+            const b = document.getElementById('toastNotification'); b.style.opacity = '0'; b.style.transform = 'translateY(10px)'; setTimeout(() => b.style.display = 'none', 300);
+        }
+        function resetDashboardData() {
+            if (!confirm('Reset all?')) return; localStorage.removeItem('MoralDashboard_DB'); sessionStorage.removeItem('countedThisSession');
+            DB = { folders: [], trash: [], visitors: 0 }; initSystemState(); navigateToRoot();
+        }
+        window.onload = initSystemState;
+    </script>
+</body>
+</html>      
